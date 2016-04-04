@@ -115,14 +115,30 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.Bugsnag.config" />
+    <None Include="NuGetAssets\BugsnagMonoImproved.nuspec" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="..\..\packages\PepitaPackage.1.21.4\build\PepitaPackage.targets" Condition="Exists('..\..\packages\PepitaPackage.1.21.4\build\PepitaPackage.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
   </Target>
-  <Target Name="AfterBuild">
-  </Target>
   -->
+  <Target Name="AfterBuild">
+    <ItemGroup>
+      <FilesToDelete Include="$(SolutionDir)NuGetBuild\**\*.*" />
+    </ItemGroup>
+    <Delete Files="@(FilesToDelete)" />
+    <MakeDir Directories="$(SolutionDir)NuGetBuild/lib/Net35" />
+    <MakeDir Directories="$(SolutionDir)NuGetBuild/lib/Net45" />
+    <Copy SourceFiles="$(TargetDir)$(TargetFileName)" DestinationFolder="$(SolutionDir)NuGetBuild/lib/Net45" />
+    <Copy SourceFiles="$(TargetDir)$(TargetFileName).mdb" DestinationFolder="$(SolutionDir)NuGetBuild/lib/Net45" Condition="Exists('$(TargetDir)$(TargetFileName).mdb')" />
+    <Copy SourceFiles="$(TargetDir)$(TargetName).pdb" DestinationFolder="$(SolutionDir)NuGetBuild/lib/Net45" Condition="Exists('$(TargetDir)$(TargetName).pdb')" />
+    <Copy SourceFiles="$(TargetDir)../Net35/Bugsnag.dll" DestinationFolder="$(SolutionDir)NuGetBuild/lib/Net35" />
+    <Copy SourceFiles="$(TargetDir)../Net35/Bugsnag.dll.mdb" DestinationFolder="$(SolutionDir)NuGetBuild/lib/Net35" Condition="Exists('$(TargetDir)../Net35/Bugsnag.dll.mdb')" />
+    <Copy SourceFiles="$(TargetDir)../Net35/Bugsnag.pdb" DestinationFolder="$(SolutionDir)NuGetBuild/lib/Net35" Condition="Exists('$(TargetDir)../Net35/Bugsnag.pdb')" />
+    <Copy SourceFiles="$(ProjectDir)NuGetAssets/$(TargetName)Improved.nuspec" DestinationFolder="$(SolutionDir)NuGetBuild" />
+    <PepitaPackage.CreatePackageTask NuGetBuildDirectory="$(SolutionDir)NuGetBuild" MetadataAssembly="$(TargetPath)" />
+  </Target>
 </Project>

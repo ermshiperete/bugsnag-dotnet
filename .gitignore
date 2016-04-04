@@ -18,6 +18,7 @@ x86/
 bld/
 [Bb]in/
 [Oo]bj/
+NuGetBuild/
 
 # Roslyn cache directories
 *.ide/
