@@ -10,7 +10,12 @@
     <projectUrl>https://github.com/ermshiperete/bugsnag-dotnet</projectUrl>
     <iconUrl>https://dbd6j53uzcole.cloudfront.net/assets/images/website/logo-mark.0b14965b.png</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>The Bugsnag .NET notifier for Mono</description>
+    <description>Improved Bugsnag .NET notifier for Mono.
+
+The difference between BugsnagMono and BugsnagMonoImproved is that this version of the package fixes the
+OfflineStorage on Linux and normalizes file paths in exceptions.
+
+Despite its name it can be used on Windows as well as long as you don't need the WPF or Web clients.</description>
     <releaseNotes />
     <copyright>Copyright 2016</copyright>
     <tags>bugsnag error logging reporting</tags>
