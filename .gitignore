@@ -186,3 +186,4 @@ FakesAssemblies/
 
 build/
 .fake/
+.idea/
